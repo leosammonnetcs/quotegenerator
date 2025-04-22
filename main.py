@@ -16,6 +16,13 @@ def validate_input():
 
 def createQuote(site_num):
     i = TEFCSR.index(site_num)
+    access_type = {
+        "" : 0,
+        "Ladder" : 0,
+        "Podium Steps" : 9,
+        "Mobile Scaffolding" : 10,
+        "Cherry Picker" : 11
+    }
     filename = str(site_num) + "_" + site_name[i] + ".xlsx"
     wb = load_workbook("bins/VMO2 CS TEMPLATE.xlsx")
     ws = wb["Summary"]
@@ -24,7 +31,14 @@ def createQuote(site_num):
     ws.cell(6, 2).value = site_address[i]
     ws.cell(7, 2).value = site_postcode[i]
     ws = wb["Ratecard"]
-    ws.cell(6, 5).value = cost_recieved[i]
+    ws.cell(8, 3).value = cost_recieved[i]
+    if site_access[i] != None:
+        if access_type[site_access[i]] > 0:
+            ws.cell(access_type[site_access[i]], 5).value = 1
+    if split_decom[i] == "Y":
+        ws.cell(6, 5).value = 1
+    if ooh_decom[i] == "Y":
+        ws.cell(7, 5).value = 1
     wb.save(filename)
     messagebox.showinfo("Quote Created!", "Quote for site: " + str(site_num) + " - " + site_name[i] + " has been created!")
     root.quit()
@@ -40,6 +54,11 @@ site_name = [ws.cell(cell_no, 3).value for cell_no in range(3, ws.max_row)]
 site_address = [ws.cell(cell_no, 4).value for cell_no in range(3, ws.max_row)]
 site_postcode = [ws.cell(cell_no, 5).value for cell_no in range(3, ws.max_row)]
 cost_recieved = [ws.cell(cell_no, 61).value for cell_no in range(3, ws.max_row)]
+site_access = [ws.cell(cell_no, 63).value for cell_no in range(3, ws.max_row)]
+split_decom = [ws.cell(cell_no, 64).value for cell_no in range(3, ws.max_row)]
+ooh_decom = [ws.cell(cell_no, 65).value for cell_no in range(3, ws.max_row)]
+print(cost_recieved)
+print(site_access)
 
 root = tk.Tk()
 root.geometry("280x120")
