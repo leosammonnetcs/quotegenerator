@@ -14,7 +14,7 @@ def validate_input():
     except:
         messagebox.showerror("Site Number Not Found!", "Please check that you have selected a site number.")
 
-def createQuote(site_num):
+def createQuote(site_num, msgbox=True):
     i = TEFCSR.index(site_num)
     access_type = {
         "" : 0,
@@ -40,8 +40,17 @@ def createQuote(site_num):
     if ooh_decom[i] == "Y":
         ws.cell(7, 5).value = 1
     wb.save(filename)
-    messagebox.showinfo("Quote Created!", "Quote for site: " + str(site_num) + " - " + site_name[i] + " has been created!")
-    root.quit()
+    if msgbox:
+        messagebox.showinfo("Quote Created!", "Quote for site: " + str(site_num) + " - " + site_name[i] + " has been created!")
+
+def createAllQuotes():
+    for id in TEFCSR:
+        try:
+            createQuote(id, False)
+        except Exception as e:
+            messagebox.showerror("Error", f"Site Skipped: {id}, {e}")
+
+    messagebox.showinfo("Quotes Created", "Quotes have been created for every site.")
 
 url = "https://newedge-my.sharepoint.com/:x:/g/personal/tima_netcs_co_uk/EQD9EciysPNPpW5OzvV71pYBS0sjqyyCOM4QpxkF29Vl3w?download=1"
 
@@ -50,18 +59,16 @@ os.system(".\\bins\\wget.exe -O download/tracker.xlsx " + url)
 wb = load_workbook("download/tracker.xlsx")
 ws = wb["Decom Project 2025 - Surveys"]
 TEFCSR = [int(ws.cell(cell_no, 1).value) for cell_no in range(3, ws.max_row)]
-site_name = [ws.cell(cell_no, 3).value for cell_no in range(3, ws.max_row)]
+site_name = [ws.cell(cell_no, 3).value.replace("/", "-").replace("\t", "") for cell_no in range(3, ws.max_row)]
 site_address = [ws.cell(cell_no, 4).value for cell_no in range(3, ws.max_row)]
 site_postcode = [ws.cell(cell_no, 5).value for cell_no in range(3, ws.max_row)]
 cost_recieved = [ws.cell(cell_no, 61).value for cell_no in range(3, ws.max_row)]
 site_access = [ws.cell(cell_no, 63).value for cell_no in range(3, ws.max_row)]
 split_decom = [ws.cell(cell_no, 64).value for cell_no in range(3, ws.max_row)]
 ooh_decom = [ws.cell(cell_no, 65).value for cell_no in range(3, ws.max_row)]
-print(cost_recieved)
-print(site_access)
 
 root = tk.Tk()
-root.geometry("280x120")
+root.geometry("360x180")
 root.resizable(False, False)
 root.title("VMO2 Quote Generator")
 
@@ -75,5 +82,8 @@ combo = ttk.Combobox(
 combo.pack()
 button = tk.Button(root, text="Submit", command=validate_input, font=font.Font(size=12))
 button.pack(pady=10)
+
+button2 = tk.Button(root, text="Create Quote for all sites", command=createAllQuotes, font=font.Font(size=12))
+button2.pack(pady=10)
 
 root.mainloop()

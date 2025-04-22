@@ -1,4 +1,4 @@
 # HSTS 1.0 Known Hosts database for GNU Wget.
 # Edit at your own risk.
 # <hostname>	<port>	<incl. subdomains>	<created>	<max-age>
-newedge-my.sharepoint.com	0	0	1745314374	31536000
+newedge-my.sharepoint.com	0	0	1745328258	31536000
