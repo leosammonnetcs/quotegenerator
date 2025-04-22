@@ -2,7 +2,7 @@
 A simple tool for generating quotes from master spreadsheet.
 
 ## Installation Guide
-Download the latest release (currently prototype v0.1.0-alpha) [found here](https://github.com/leosammonnetcs/quotegenerator/releases/tag/v0.1.0-alpha). After downloading exec.zip, extract the exec folder onto your desktop.
+Download the latest release (currently v1.0.0) [found here](https://github.com/leosammonnetcs/quotegenerator/releases/tag/v1.0.0). After downloading exec.zip, extract the exec folder onto your desktop.
 
 ![image](https://github.com/user-attachments/assets/c8447a3f-ee5c-4990-842c-a0d2dadc18f7)
 
