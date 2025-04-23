@@ -3,6 +3,7 @@ from openpyxl import Workbook, load_workbook
 import tkinter as tk
 import tkinter.font as font
 from tkinter import messagebox, StringVar, OptionMenu, ttk
+from tkinter.filedialog import asksaveasfile 
 
 def validate_input():
     user_input = combo.get()
@@ -11,8 +12,9 @@ def validate_input():
             createQuote(int(user_input))
         else:
             messagebox.showerror("Site Number Not Found!", "Please check that you have entered the correct site number.")
-    except:
+    except Exception as e:
         messagebox.showerror("Site Number Not Found!", "Please check that you have selected a site number.")
+        print(e)
 
 def createQuote(site_num, msgbox=True):
     i = TEFCSR.index(site_num)
@@ -23,7 +25,12 @@ def createQuote(site_num, msgbox=True):
         "Mobile Scaffolding" : 10,
         "Cherry Picker" : 11
     }
-    filename = "NetCS - " + str(site_num) + " - " + site_name[i] + " - CS.xlsx"
+    #Set a default filename
+    filename = f"NetCS - {str(site_num)} - {site_name[i]} - CS.xlsx"
+
+    #Prompt user with file save dialog
+    filesave = asksaveasfile(filetypes = [('Excel Document', '*.xlsx')], defaultextension = [('Excel Document', '*.xlsx')], initialfile=filename)
+
     wb = load_workbook("bins/VMO2 CS TEMPLATE.xlsx")
     ws = wb["Summary"]
     ws.cell(4, 2).value = site_num
@@ -39,7 +46,10 @@ def createQuote(site_num, msgbox=True):
         ws.cell(6, 5).value = 1
     if ooh_decom[i] == "Y":
         ws.cell(7, 5).value = 1
-    wb.save(filename)
+
+    #Save workbook with name selected by user.
+    wb.save(filesave.name)
+    
     if msgbox:
         messagebox.showinfo("Quote Created!", "Quote for site: " + str(site_num) + " - " + site_name[i] + " has been created!")
 
