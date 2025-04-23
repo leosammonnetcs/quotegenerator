@@ -23,7 +23,7 @@ def createQuote(site_num, msgbox=True):
         "Mobile Scaffolding" : 10,
         "Cherry Picker" : 11
     }
-    filename = str(site_num) + "_" + site_name[i] + ".xlsx"
+    filename = "NetCS - " + str(site_num) + " - " + site_name[i] + " - CS.xlsx"
     wb = load_workbook("bins/VMO2 CS TEMPLATE.xlsx")
     ws = wb["Summary"]
     ws.cell(4, 2).value = site_num
@@ -68,7 +68,7 @@ split_decom = [ws.cell(cell_no, 64).value for cell_no in range(3, ws.max_row)]
 ooh_decom = [ws.cell(cell_no, 65).value for cell_no in range(3, ws.max_row)]
 
 root = tk.Tk()
-root.geometry("360x180")
+root.geometry("300x130")
 root.resizable(False, False)
 root.title("VMO2 Quote Generator")
 
@@ -83,7 +83,7 @@ combo.pack()
 button = tk.Button(root, text="Submit", command=validate_input, font=font.Font(size=12))
 button.pack(pady=10)
 
-button2 = tk.Button(root, text="Create Quote for all sites", command=createAllQuotes, font=font.Font(size=12))
-button2.pack(pady=10)
+#button2 = tk.Button(root, text="Create Quote for all sites", command=createAllQuotes, font=font.Font(size=12))
+#button2.pack(pady=10)
 
 root.mainloop()
