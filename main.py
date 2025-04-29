@@ -26,7 +26,7 @@ def createQuote(site_num, msgbox=True):
         "Cherry Picker" : 11
     }
     #Set a default filename
-    filename = f"NetCS - {str(site_num)} - {site_name[i]} - CS.xlsx"
+    filename = f"NET - VMO2 - {str(site_num)} - {site_name[i]} - CS_V1.xlsx"
 
     #Prompt user with file save dialog
     filesave = asksaveasfile(filetypes = [('Excel Document', '*.xlsx')], defaultextension = [('Excel Document', '*.xlsx')], initialfile=filename)
@@ -37,6 +37,7 @@ def createQuote(site_num, msgbox=True):
     ws.cell(5, 2).value = site_name[i]
     ws.cell(6, 2).value = site_address[i]
     ws.cell(7, 2).value = site_postcode[i]
+    ws.cell(22, 1).value = document_name[i]
     ws = wb["Ratecard"]
     ws.cell(8, 3).value = cost_recieved[i]
     if site_access[i] != None:
@@ -72,6 +73,7 @@ TEFCSR = [int(ws.cell(cell_no, 1).value) for cell_no in range(3, ws.max_row)]
 site_name = [ws.cell(cell_no, 3).value.replace("/", "-").replace("\t", "") for cell_no in range(3, ws.max_row)]
 site_address = [ws.cell(cell_no, 4).value for cell_no in range(3, ws.max_row)]
 site_postcode = [ws.cell(cell_no, 5).value for cell_no in range(3, ws.max_row)]
+document_name = [ws.cell(cell_no, 50).value for cell_no in range(3, ws.max_row)]
 cost_recieved = [ws.cell(cell_no, 61).value for cell_no in range(3, ws.max_row)]
 site_access = [ws.cell(cell_no, 63).value for cell_no in range(3, ws.max_row)]
 split_decom = [ws.cell(cell_no, 64).value for cell_no in range(3, ws.max_row)]
