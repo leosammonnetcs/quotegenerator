@@ -71,13 +71,13 @@ wb = load_workbook("download/tracker.xlsx")
 ws = wb["Decom Project 2025 - Surveys"]
 TEFCSR = [int(ws.cell(cell_no, 1).value) for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
 site_name = [ws.cell(cell_no, 3).value.replace("/", "-").replace("\t", "") for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-site_address = [ws.cell(cell_no, 4).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-site_postcode = [ws.cell(cell_no, 5).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-document_name = [ws.cell(cell_no, 50).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-cost_recieved = [ws.cell(cell_no, 61).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-site_access = [ws.cell(cell_no, 63).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-split_decom = [ws.cell(cell_no, 64).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
-ooh_decom = [ws.cell(cell_no, 65).value for cell_no in range(3, ws.max_row) if ws.cell(cell_no, 1).value != None]
+site_address = [ws.cell(cell_no, 4).value for cell_no in range(3, ws.max_row)]
+site_postcode = [ws.cell(cell_no, 5).value for cell_no in range(3, ws.max_row)]
+document_name = [ws.cell(cell_no, 50).value for cell_no in range(3, ws.max_row)]
+cost_recieved = [ws.cell(cell_no, 61).value for cell_no in range(3, ws.max_row)]
+site_access = [ws.cell(cell_no, 63).value for cell_no in range(3, ws.max_row)]
+split_decom = [ws.cell(cell_no, 64).value for cell_no in range(3, ws.max_row)]
+ooh_decom = [ws.cell(cell_no, 65).value for cell_no in range(3, ws.max_row)]
 
 root = tk.Tk()
 root.geometry("300x130")
