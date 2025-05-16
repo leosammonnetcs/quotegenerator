@@ -20,9 +20,13 @@ def createQuote(site_num, msgbox=True):
     i = TEFCSR.index(site_num)
     access_type = {
         "" : 0,
+        "N/A": 0,
         "Ladder" : 0,
         "Podium Steps" : 9,
         "Mobile Scaffolding" : 10,
+        "Mobile Scaffold" : 10,
+        "X Tower/Scaffold" : 10,
+        "Xtower" : 10,
         "Cherry Picker" : 11
     }
     #Set a default filename
@@ -39,7 +43,10 @@ def createQuote(site_num, msgbox=True):
     ws.cell(7, 2).value = site_postcode[i]
     ws.cell(22, 1).value = document_name[i]
     ws = wb["Ratecard"]
-    ws.cell(8, 3).value = cost_recieved[i]
+    if cost_recieved[i] == "N/A":
+        ws.cell(8, 3).value = 0
+    else:
+        ws.cell(8, 3).value = cost_recieved[i]
     if site_access[i] != None:
         if access_type[site_access[i]] > 0:
             ws.cell(access_type[site_access[i]], 5).value = 1
